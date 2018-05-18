@@ -1,0 +1,5 @@
+
+app/target/
+**/*.rs.bk
+Cargo.lock
+/db_data/*

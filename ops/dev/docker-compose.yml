@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+  db:
+    container_name: db
+    image: mysql:5.7.19
+    networks:
+      - db_tier
+    expose:
+      - '3306'
+    ports:
+      - 3306:3306
+    volumes:
+       - ./db_data:/var/lib/mysql
+    restart: always
+    environment:
+      - MYSQL_RANDOM_ROOT_PASSWORD=yes
+      - MYSQL_DATABASE=test-web-app
+      - MYSQL_USER=test-web-app
+      - MYSQL_PASSWORD=test-web-app
+
+  app:
+    container_name: app
+    image: rust:1.26.0
+    networks:
+      - app_tier
+    expose:
+      - '3000'
+    ports:
+      - 3000:3000
+    volumes:
+      - ../../app:/app
+    working_dir: /app
+    entrypoint: "/bin/sh -c"
+    command:
+      # keep container running
+      - tail -f /dev/null
+    depends_on:
+      - db
+
+networks:
+  db_tier:
+    driver: bridge
+  app_tier:
+    driver: bridge
