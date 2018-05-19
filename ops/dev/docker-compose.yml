@@ -21,7 +21,7 @@ services:
 
   api:
     container_name: api
-    image: rust:1.26.0
+    build: ./rust
     networks:
       - api_tier
     expose:
@@ -35,6 +35,7 @@ services:
     command:
       # keep container running
       - tail -f /dev/null
+      - rustup component add rustfmt-preview
     depends_on:
       - db
 

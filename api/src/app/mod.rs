@@ -1,7 +1,7 @@
 mod controller;
 
-use actix_web::server;
 use actix_web::App as ActixWebApp;
+use actix_web::server;
 
 use self::controller::Controller;
 
