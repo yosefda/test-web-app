@@ -19,18 +19,18 @@ services:
       - MYSQL_USER=test-web-app
       - MYSQL_PASSWORD=test-web-app
 
-  app:
-    container_name: app
+  api:
+    container_name: api
     image: rust:1.26.0
     networks:
-      - app_tier
+      - api_tier
     expose:
       - '3000'
     ports:
       - 3000:3000
     volumes:
-      - ../../app:/app
-    working_dir: /app
+      - ../../api:/api
+    working_dir: /api
     entrypoint: "/bin/sh -c"
     command:
       # keep container running
@@ -41,5 +41,5 @@ services:
 networks:
   db_tier:
     driver: bridge
-  app_tier:
+  api_tier:
     driver: bridge
