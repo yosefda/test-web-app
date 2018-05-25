@@ -1,9 +1,23 @@
+extern crate actix;
 extern crate actix_web;
+#[macro_use] extern crate serde_derive;
+extern crate serde;
+extern crate serde_json;
 
-mod app;
+mod handlers;
+mod todo;
 
-use app::App;
+use actix_web::{server, App};
 
 fn main() {
-    App::run();
+    let sys = actix::System::new("test-web-app-api");
+
+    server::new(
+        || App::new()
+            .resource("/todo", |r| r.post().with(handlers::new_todo)))
+        .bind("0.0.0.0:3000")
+        .expect("Can not bind with 0.0.0.0:3000")
+        .start();
+
+    let _ = sys.run();
 }
