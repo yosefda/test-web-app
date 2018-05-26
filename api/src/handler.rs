@@ -1,5 +1,5 @@
 use hyper::{Request, Response};
-use hyper::{Method, StatusCode};
+use hyper::{StatusCode};
 
 pub fn home(_req: Request) -> Response {
     let mut response = Response::new();

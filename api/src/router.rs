@@ -1,5 +1,5 @@
 use hyper::{Request, Response};
-use hyper::{Method, StatusCode};
+use hyper::{Method};
 use handler;
 
 pub fn route(req: Request) -> Response {
