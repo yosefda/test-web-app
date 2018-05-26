@@ -1,23 +1,23 @@
-extern crate actix;
-extern crate actix_web;
-#[macro_use] extern crate serde_derive;
-extern crate serde;
-extern crate serde_json;
+#[macro_use] extern crate log;
+extern crate env_logger;
+extern crate hyper;
+extern crate futures;
 
-mod handlers;
-mod todo;
+mod service;
 
-use actix_web::{server, App};
+use hyper::server::{Http};
+
+use service::WebAppApi;
+
+
+
+
 
 fn main() {
-    let sys = actix::System::new("test-web-app-api");
+    env_logger::init();
 
-    server::new(
-        || App::new()
-            .resource("/todo", |r| r.post().with(handlers::new_todo)))
-        .bind("0.0.0.0:3000")
-        .expect("Can not bind with 0.0.0.0:3000")
-        .start();
-
-    let _ = sys.run();
+    let addr = "0.0.0.0:3000".parse().expect("Cannot parse the assigned IP.");
+    let server = Http::new()
+        .bind(&addr, || Ok(WebAppApi)).expect("Cannot bind with the assigned IP.");
+    server.run().expect("Cannot run server.");
 }
