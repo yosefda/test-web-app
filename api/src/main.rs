@@ -1,9 +1,10 @@
-#[macro_use] extern crate log;
+//#[macro_use] extern crate log;
 extern crate env_logger;
 extern crate hyper;
 extern crate futures;
 
 mod service;
+mod router;
 
 use hyper::server::{Http};
 
