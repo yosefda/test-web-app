@@ -6,6 +6,7 @@ extern crate futures;
 mod service;
 mod router;
 mod handler;
+mod typedef;
 
 use hyper::server::{Http};
 

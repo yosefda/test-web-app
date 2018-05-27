@@ -1,8 +1,9 @@
-use hyper::{Request, Response};
+use hyper::{Request};
 use hyper::{Method};
 use handler;
+use typedef::{ApiResponse};
 
-pub fn route(req: Request) -> Response {
+pub fn route(req: Request) -> ApiResponse {
     match (req.method(), req.path()) {
         (&Method::Get, "/") => {
             return handler::home(req);
